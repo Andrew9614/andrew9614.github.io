@@ -18,7 +18,7 @@ let isDragging = false,
   xOffset = 0,
   yOffset = 0;
 
-previewImg.onPointer;
+previewImg.style.top = 500 / 2 - previewImg.height / 2 + 'px';
 
 let scale = 100,
   rotate = 0;
@@ -99,28 +99,28 @@ const resetFilter = () => {
 const saveImage = () => {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
-  canvas.width = 500;
-  canvas.height = 750;
-
-  ctx.filter = `brightness(${brightness}%) saturate(${saturation}%) invert(${inversion}%) grayscale(${grayscale}%)`;
-  ctx.translate(canvas.width / 2, canvas.height / 2);
+  canvas.width = 333;
+  canvas.height = 500;
+  ctx.fillStyle = 'green';
+  ctx.fillRect(0, 0, 1000, 1000);
   if (rotate !== 0) {
     ctx.rotate((rotate * Math.PI) / 180);
   }
-  ctx.scale(flipHorizontal, flipVertical);
-  ctx.drawImage(
-    frameImg,
-    -canvas.width / 2,
-    -canvas.height / 2,
-    canvas.width,
-    canvas.height
-  );
+  //ctx.scale(scale / 100, scale / 100);
+   ctx.drawImage(
+     frameImg,
+     -canvas.width / 2,
+     -canvas.height / 2,
+     canvas.width,
+     canvas.height
+   );
+  console.log(previewImg.offsetTop);
   ctx.drawImage(
     previewImg,
-    -canvas.width / 2,
-    -canvas.height / 2,
-    previewImg.width,
-    previewImg.height
+    parseInt(previewImg.style.left),
+    parseInt(previewImg.style.top),
+    (previewImg.width * scale) / 100,
+    (previewImg.height * scale) / 100
   );
 
   const link = document.createElement('a');
@@ -157,7 +157,7 @@ function drag(e) {
     e.preventDefault();
     currentX = e.clientX - initialX;
     currentY = e.clientY - initialY;
-
+		console.log(previewImg.offsetTop)
     xOffset = currentX;
     yOffset = currentY;
 
