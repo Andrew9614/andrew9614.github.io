@@ -107,13 +107,6 @@ const saveImage = () => {
     ctx.rotate((rotate * Math.PI) / 180);
   }
   //ctx.scale(scale / 100, scale / 100);
-   ctx.drawImage(
-     frameImg,
-     0,
-     0,
-     frameImg.width,
-     frameImg.height
-   );
   console.log(previewImg.offsetTop);
   ctx.drawImage(
     previewImg,
@@ -122,6 +115,13 @@ const saveImage = () => {
     (previewImg.width * scale) / 100,
     (previewImg.height * scale) / 100
   );
+  ctx.drawImage(
+     frameImg,
+     0,
+     0,
+     frameImg.width,
+     frameImg.height
+   );
 
   const link = document.createElement('a');
   link.download = 'image.jpg';
