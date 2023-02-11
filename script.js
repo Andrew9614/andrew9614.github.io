@@ -109,10 +109,10 @@ const saveImage = () => {
   //ctx.scale(scale / 100, scale / 100);
    ctx.drawImage(
      frameImg,
-     -canvas.width / 2,
-     -canvas.height / 2,
-     canvas.width,
-     canvas.height
+     0,
+     0,
+     frameImg.width,
+     frameImg.height
    );
   console.log(previewImg.offsetTop);
   ctx.drawImage(
