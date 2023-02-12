@@ -29,9 +29,19 @@
               </div>
               <input type="range" value="100" min="0" max="400" />
             </div>
-						<div class="text-input-container">
-							<input class="text-input" type="text" placeholder="Ведите ваш текст"/>
-						</div>
+            <div class="text-input-container">
+              <input
+                class="text-input"
+                type="text"
+                placeholder="Ведите ваш текст"
+              />
+            </div>
+          </div>
+          <div class="controls">
+            <button class="reset-filter">Сбросить</button>
+            <input type="file" class="file-input" accept="image/*" hidden />
+            <button class="choose-img">Выбрать изображение</button>
+            <button class="save-img">Сохранить</button>
           </div>
         </div>
         <div class="preview-img">
@@ -41,15 +51,7 @@
             src="image-placeholder.svg"
             alt="preview-img"
           />
-					<p class="render-text"></p>
-        </div>
-      </div>
-      <div class="controls">
-        <button class="reset-filter">Сбросить</button>
-        <div class="row">
-          <input type="file" class="file-input" accept="image/*" hidden />
-          <button class="choose-img">Выбрать изображение</button>
-          <button class="save-img">Сохранить</button>
+          <p class="render-text"></p>
         </div>
       </div>
     </div>

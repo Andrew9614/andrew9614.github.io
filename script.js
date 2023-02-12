@@ -70,7 +70,7 @@ const saveImage = () => {
   console.log(frameImg.naturalWidth);
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
-  let upscale = frameImg.naturalWidth/frameImg.width;
+  let upscale = frameImg.naturalWidth / frameImg.width;
   canvas.width = container.width * upscale;
   canvas.height = container.height * upscale;
   let targetLeft = targetImg.offsetLeft * upscale;
@@ -100,14 +100,17 @@ const saveImage = () => {
   );
   ctx.restore();
   ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
-  ctx.font = `${textSize * upscale}px SansSerif`;
+  ctx.font = `${textSize * upscale}px Montserrat`;
   ctx.fillStyle = 'black';
-  ctx.fillText(
-    renderText.innerHTML,
-    textLeft * upscale,
-    (textTop + textSize) * upscale
-  );
-  // document.querySelector('.container').append(canvas);
+
+  let lines = renderText.innerHTML.split('<br>');
+  for (var i = 0; i < lines.length; i++)
+    ctx.fillText(
+      lines[i],
+      textLeft * upscale,
+      (textTop + textSize + i * textSize) * upscale
+    );
+  //document.querySelector('.container').append(canvas);
   const link = document.createElement('a');
   link.download = 'image.jpg';
   link.href = canvas.toDataURL();
@@ -116,7 +119,7 @@ const saveImage = () => {
 
 const frameResize = () => {
   frameImgRec = frameImg.getBoundingClientRect();
-  textSize = frameImgRec.height * 0.04;
+  textSize = frameImgRec.height * 0.03;
   textLeft = frameImgRec.width * 0.1;
   textTop = frameImgRec.height * 0.8;
   renderText.style.fontSize = textSize + 'px';
@@ -125,7 +128,25 @@ const frameResize = () => {
 };
 
 const handleInputChange = (e) => {
-  renderText.innerHTML = e.target.value ? `...${e.target.value}` : '';
+  stringLimit = 30;
+  let text = e.target.value;
+  if (text.length > stringLimit * 2) {
+    e.target.value = text.slice(0, text.length - 1);
+    return;
+  }
+  // if (text.length > stringLimit-5)
+  //   text = [text.slice(0, stringLimit-5), '<br>', text.slice(stringLimit-5)].join(
+  //     ''
+  //   );
+  renderText.innerHTML = text
+    ? `...${text.replace(
+        new RegExp(
+          `(?![^\\n]{1,${stringLimit}}$)([^\\n]{1,${stringLimit}})\\s`,
+          'g'
+        ),
+        '$1<br>'
+      )}`
+    : '';
 };
 
 const dragStart = (e) => {
